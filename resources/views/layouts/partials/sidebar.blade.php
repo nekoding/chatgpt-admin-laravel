@@ -12,7 +12,7 @@
     >
         <li class="nav-item"><a
                 class="nav-link"
-                href="#"
+                href="{{ route('dashboard') }}"
             >
                 <i class="cil-speedometer nav-icon"></i> Dashboard</a></li>
         <li class="nav-title">Management</li>

@@ -15,7 +15,7 @@
         <ul class="header-nav d-none d-md-flex">
             <li class="nav-item"><a
                     class="nav-link"
-                    href="#"
+                    href="{{ route('dashboard') }}"
                 >Dashboard</a></li>
         </ul>
         <ul class="header-nav ms-auto">
