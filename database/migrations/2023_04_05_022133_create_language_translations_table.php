@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('lang_id')->constrained('languages');
             $table->string('lang_code')->index();
-            $table->string('text');
+            $table->string('text')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

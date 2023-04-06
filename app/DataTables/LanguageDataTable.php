@@ -23,19 +23,19 @@ class LanguageDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('translates.en_us', function (Language $language) {
-                return $language->translates->where('lang_code', 'en_us')->first()?->text;
+                return $language->translates->where('lang_code', 'en_us')->first()?->text ?? '-';
             })
             ->addColumn('translates.en_uk', function (Language $language) {
-                return $language->translates->where('lang_code', 'en_uk')->first()?->text;
+                return $language->translates->where('lang_code', 'en_uk')->first()?->text ?? '-';
             })
             ->addColumn('translates.ja_jp', function (Language $language) {
-                return $language->translates->where('lang_code', 'ja_jp')->first()?->text;
+                return $language->translates->where('lang_code', 'ja_jp')->first()?->text ?? '-';
             })
             ->addColumn('translates.in_id', function (Language $language) {
-                return $language->translates->where('lang_code', 'in_id')->first()?->text;
+                return $language->translates->where('lang_code', 'in_id')->first()?->text ?? '-';
             })
             ->addColumn('translates.zh_cn', function (Language $language) {
-                return $language->translates->where('lang_code', 'zh_cn')->first()?->text;
+                return $language->translates->where('lang_code', 'zh_cn')->first()?->text ?? '-';
             })
             ->filterColumn('translates.en_us', function ($query, $keyword) {
                 return $query->whereHas('translates', function ($q) use (&$keyword) {

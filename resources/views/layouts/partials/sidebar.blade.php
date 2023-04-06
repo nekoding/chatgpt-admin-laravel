@@ -21,12 +21,6 @@
                 href="{{ route('languages.index') }}"
             >
                 <i class="cil-language nav-icon"></i> Languages</a></li>
-        <li class="nav-item"><a
-                class="nav-link"
-                href="#"
-            >
-                <i class="cib-probot nav-icon"></i> Prompt</a></li>
-
         <li class="nav-title">Configuration</li>
         <li class="nav-item"><a
                 class="nav-link"
