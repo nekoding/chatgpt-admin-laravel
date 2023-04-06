@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Crypt;
 class AppConfigurationController extends Controller
 {
 
+    /**
+     * Handle OpenAI Index Page
+     *
+     * @return void
+     */
     public function openAiConfigIndex()
     {
         $data = \App\Models\Config::where('key', 'api_key')->first();
@@ -17,6 +22,12 @@ class AppConfigurationController extends Controller
         return view('pages.configurations.openai.index', compact('apiKey'));
     }
 
+    /**
+     * Handle OpenAI Store 
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function openAiConfigStore(Request $request)
     {
         $data = $request->validate([

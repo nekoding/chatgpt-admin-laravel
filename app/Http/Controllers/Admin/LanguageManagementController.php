@@ -11,6 +11,11 @@ use Maatwebsite\Excel\Facades\Excel;
 class LanguageManagementController extends Controller
 {
 
+    /**
+     * Allowed import mimetype
+     *
+     * @var array
+     */
     private $allowedMimeTypes = [
         'application/vnd.ms-excel',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -18,6 +23,9 @@ class LanguageManagementController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 
+     * @param \App\DataTables\LanguageDataTable $languageDataTable
+     * 
      */
     public function index(LanguageDataTable $languageDataTable)
     {
@@ -34,6 +42,9 @@ class LanguageManagementController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * 
      */
     public function store(Request $request)
     {
@@ -61,15 +72,9 @@ class LanguageManagementController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
+     * 
+     * @param string $id
      */
     public function edit(string $id)
     {
@@ -81,6 +86,10 @@ class LanguageManagementController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param string $id
+     * 
      */
     public function update(Request $request, string $id)
     {
@@ -111,6 +120,9 @@ class LanguageManagementController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * @param string $id
+     * 
      */
     public function destroy(string $id)
     {
@@ -118,6 +130,11 @@ class LanguageManagementController extends Controller
         return response('OK');
     }
 
+    /**
+     * Handle import data request
+     *
+     * @param \Illuminate\Http\Request $request
+     */
     public function handleImportData(Request $request)
     {
         $request->validate([
@@ -138,6 +155,11 @@ class LanguageManagementController extends Controller
         ]);
     }
 
+    /**
+     * Handle import data revert
+     *
+     * @param \Illuminate\Http\Request $request
+     */
     public function revertImportData(Request $request)
     {
         // TODO: handle it
