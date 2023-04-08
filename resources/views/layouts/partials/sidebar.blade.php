@@ -21,6 +21,11 @@
                 href="{{ route('languages.index') }}"
             >
                 <i class="cil-language nav-icon"></i> Languages</a></li>
+        <li class="nav-item"><a
+                class="nav-link"
+                href="{{ route('cards.index') }}"
+            >
+                <i class="cil-filter-photo nav-icon"></i> Cards</a></li>
         <li class="nav-title">Configuration</li>
         <li class="nav-item"><a
                 class="nav-link"

@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/configuration/openai', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiConfigIndex'])->name('config.openai.index');
     Route::post('/configuration/openai', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiConfigStore'])->name('config.openai.store');
+
+    Route::resource('/cards', \App\Http\Controllers\Admin\CardManagementController::class);
 });
 
 require __DIR__ . '/auth.php';
