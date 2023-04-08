@@ -56,7 +56,10 @@
                             alt="user@email.com"
                         ></div>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end pt-0">
+                <div
+                    class="dropdown-menu dropdown-menu-end pt-0"
+                    x-data=""
+                >
                     <div class="dropdown-header bg-light py-2">
                         <div class="fw-semibold">Account</div>
                     </div>
@@ -66,13 +69,20 @@
                     >
                         <i class="icon me-2 cil-user"></i>Profil</a>
                     <div class="dropdown-divider"></div>
-                    <a
+                    <button
                         class="dropdown-item"
-                        href="#"
-                        x-data=""
-                        @click="axios.post('{{ route('logout') }}').then(res => window.location.reload())"
+                        type="button"
+                        @click="() => {
+                            axios.delete('{{ route('logout') }}', {}, {
+                                headers: {
+                                    'Accept': 'application/json'
+                                }
+                            }).then(res => {
+                                window.location.reload()
+                            })
+                        }"
                     >
-                        <i class="icon me-2 cil-account-logout"></i> Logout</a>
+                        <i class="icon me-2 cil-account-logout"></i> Logout</button>
                 </div>
             </li>
         </ul>

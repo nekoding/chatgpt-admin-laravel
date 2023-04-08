@@ -20,6 +20,8 @@ class LanguageImport implements ToModel, WithHeadingRow, WithBatchInserts
     public function model(array $row)
     {
 
+        $row = array_filter($row);
+
         DB::beginTransaction();
         try {
             $lang = Language::updateOrCreate([
