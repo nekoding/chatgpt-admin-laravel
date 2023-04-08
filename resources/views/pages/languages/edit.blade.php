@@ -262,4 +262,18 @@
             </form>
         </div>
     </div>
+
+    @push('scripts')
+        @if (session()->has('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    Swal.fire(
+                        'Success!',
+                        'Your data has been updated.',
+                        'success'
+                    )
+                })
+            </script>
+        @endif
+    @endpush
 </x-app-layout>
