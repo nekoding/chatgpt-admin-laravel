@@ -46,7 +46,7 @@
                             @forelse ($titles as $title)
                                 <option
                                     value="{{ $title->title_id }}"
-                                    @selected($title->title_id == $card->title)
+                                    @selected($title->title_id == $card->title || $title->title_id == old('title'))
                                 >{{ $title->default }}</option>
                             @empty
                             @endforelse
@@ -69,7 +69,7 @@
                             @forelse ($uprights as $upright)
                                 <option
                                     value="{{ $upright->title_id }}"
-                                    @selected($upright->title_id == $card->upright)
+                                    @selected($upright->title_id == $card->upright || $upright->title_id == old('upright'))
                                 >{{ $upright->default }}</option>
                             @empty
                             @endforelse
@@ -92,7 +92,7 @@
                             @forelse ($reverseds as $reversed)
                                 <option
                                     value="{{ $reversed->title_id }}"
-                                    @selected($reversed->title_id == $card->reversed)
+                                    @selected($reversed->title_id == $card->reversed || $reversed->title_id == old('reversed'))
                                 >{{ $reversed->default }}</option>
                             @empty
                             @endforelse

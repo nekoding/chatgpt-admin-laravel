@@ -38,7 +38,7 @@ class CardManagementController extends Controller
     {
         $data = $request->validate([
             'image' => 'required|image',
-            'title' => 'required|string|exists:languages,title_id|unique:cards,title',
+            'title' => 'required|string|exists:languages,title_id',
             'upright'   => 'required|string|exists:languages,title_id',
             'reversed'  => 'required|string|exists:languages,title_id'
         ]);
@@ -93,7 +93,7 @@ class CardManagementController extends Controller
     {
         $data = $request->validate([
             'image'     => 'required',
-            'title'     => 'required|string|exists:languages,title_id|unique:cards,title,' . $id . ',id',
+            'title'     => 'required|string|exists:languages,title_id',
             'upright'   => 'required|string|exists:languages,title_id',
             'reversed'  => 'required|string|exists:languages,title_id'
         ]);

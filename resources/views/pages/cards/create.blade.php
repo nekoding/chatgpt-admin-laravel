@@ -23,10 +23,14 @@
                     >Card Image <span class="text-danger fw-bold">*</span></label>
                     <div class="col-sm-10 position-relative">
                         <input
-                            class="uploader"
+                            class="uploader @error('image') is-invalid @enderror"
                             name="image"
                             type="file"
                         >
+
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -37,16 +41,23 @@
                     >Card Title <span class="text-danger fw-bold">*</span></label>
                     <div class="col-12 col-md-10">
                         <select
-                            class="form-select"
+                            class="form-select @error('title') is-invalid @enderror"
                             id="title"
                             name="title"
                         >
                             <option value="">Select Card Title</option>
                             @forelse ($titles as $title)
-                                <option value="{{ $title->title_id }}">{{ $title->default }}</option>
+                                <option
+                                    value="{{ $title->title_id }}"
+                                    @selected(old('title'))
+                                >{{ $title->default }}</option>
                             @empty
                             @endforelse
                         </select>
+
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -57,16 +68,23 @@
                     >Card Upright <span class="text-danger fw-bold">*</span></label>
                     <div class="col-12 col-md-10">
                         <select
-                            class="form-select"
+                            class="form-select @error('upright') is-invalid @enderror"
                             id="upright"
                             name="upright"
                         >
                             <option value="">Select Card Upright</option>
                             @forelse ($uprights as $upright)
-                                <option value="{{ $upright->title_id }}">{{ $upright->default }}</option>
+                                <option
+                                    value="{{ $upright->title_id }}"
+                                    @selected(old('upright'))
+                                >{{ $upright->default }}</option>
                             @empty
                             @endforelse
                         </select>
+
+                        @error('upright')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -77,16 +95,23 @@
                     >Card Reversed <span class="text-danger fw-bold">*</span></label>
                     <div class="col-12 col-md-10">
                         <select
-                            class="form-select"
+                            class="form-select @error('upright') is-invalid @enderror"
                             id="reversed"
                             name="reversed"
                         >
                             <option value="">Select Card Reversed</option>
                             @forelse ($reverseds as $reversed)
-                                <option value="{{ $reversed->title_id }}">{{ $reversed->default }}</option>
+                                <option
+                                    value="{{ $reversed->title_id }}"
+                                    @selected(old('reversed'))
+                                >{{ $reversed->default }}</option>
                             @empty
                             @endforelse
                         </select>
+
+                        @error('reversed')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -149,5 +174,17 @@
                 FilePond.setOptions({})
             });
         </script>
+
+        @if (session()->has('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    Swal.fire(
+                        'Error!',
+                        '{{ session()->get('error') }}',
+                        'error'
+                    )
+                })
+            </script>
+        @endif
     @endpush
 </x-app-layout>
