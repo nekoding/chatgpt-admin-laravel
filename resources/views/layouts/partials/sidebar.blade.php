@@ -32,6 +32,11 @@
                 href="{{ route('config.openai.index') }}"
             >
                 <i class="cil-memory nav-icon"></i> OpenAI API Key</a></li>
+        <li class="nav-item"><a
+                class="nav-link"
+                href="{{ route('config.prompt.index') }}"
+            >
+                <i class="cib-probot nav-icon"></i> OpenAI Prompt</a></li>
         {{-- <li class="nav-group"><a
                 class="nav-link nav-group-toggle"
                 href="#"

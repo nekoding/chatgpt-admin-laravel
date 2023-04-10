@@ -29,8 +29,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/languages/revert', [\App\Http\Controllers\Admin\LanguageManagementController::class, 'revertImportData'])->name('languages.revert');
     Route::resource('/languages', \App\Http\Controllers\Admin\LanguageManagementController::class)->except('show');
 
-    Route::get('/configuration/openai', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiConfigIndex'])->name('config.openai.index');
-    Route::post('/configuration/openai', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiConfigStore'])->name('config.openai.store');
+
+    Route::prefix('configuration')->group(function () {
+        Route::get('openai', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiConfigIndex'])->name('config.openai.index');
+        Route::post('openai', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiConfigStore'])->name('config.openai.store');
+
+        Route::get('prompt', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiPromptIndex'])->name('config.prompt.index');
+        Route::post('prompt', [\App\Http\Controllers\Admin\AppConfigurationController::class, 'openAiPromptStore'])->name('config.prompt.store');
+    });
 
     Route::resource('/cards', \App\Http\Controllers\Admin\CardManagementController::class);
 });

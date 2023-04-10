@@ -45,4 +45,15 @@ class AppConfigurationController extends Controller
 
         return response('OK');
     }
+
+    public function openAiPromptIndex()
+    {
+        $openAiModelList = \App\Models\Config::OPENAI_MODEL;
+        return view('pages.configurations.prompt.index', compact('openAiModelList'));
+    }
+
+    public function openAiPromptStore(Request $request)
+    {
+        //
+    }
 }
