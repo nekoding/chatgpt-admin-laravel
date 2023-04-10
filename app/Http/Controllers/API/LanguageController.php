@@ -22,30 +22,12 @@ class LanguageController extends Controller
             'locale'    => 'required|string'
         ]);
 
-        $data = Cache::remember($data['locale'], now()->addMinutes(), function () use ($data) {
-            $result = \App\Models\Language::when($data['locale'], function (Builder $query, $value) {
-                return $query->with(['translates' => function ($q) use ($value) {
-                    return $q->where('lang_code', $value);
-                }]);
-            })->get();
-
-
-            $result = $result->map(function ($item) {
-                return [
-                    $item['title_id'] => [
-                        'default'   => $item['default'],
-                        'translate' => $item->translates[0]?->text ?? null
-                    ]
-                ];
-            })->toArray();
-
-            return $result;
+        $response = Cache::remember($data['locale'], now()->addMinutes(5), function () use ($data) {
+            return \App\Models\Language::with([
+                'translates' => fn ($query) => $query->where('lang_code', $data['locale'])
+            ])->get();
         });
 
-        return response()->json([
-            'status'    => 200,
-            'message'   => 'OK',
-            'data'      => $data
-        ]);
+        return new \App\Http\Resources\Language\LanguageCollection($response);
     }
 }
