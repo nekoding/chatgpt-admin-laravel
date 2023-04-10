@@ -13,39 +13,26 @@
                 action="{{ route('config.prompt.store') }}"
                 method="POST"
                 autocomplete="false"
-                @submit.prevent="(ev) => {
-                    axios.post(ev.target.action, {
-                        api_key: apiKey
-                    })
-                    .then(res => {
-                        Swal.fire(
-                            'Success!',
-                            'Data saved successfully.',
-                            'success'
-                        )
-                    })
-                    .catch(err => {
-                        Swal.fire(
-                            'Error!',
-                            'Failed save data',
-                            'error'
-                        )
-                    })
-                }"
             >
+                @csrf
                 <div class="mb-3 row">
                     <label
                         class="col-sm-2 col-form-label"
-                        for="key"
+                        for="ai_model"
                     > AI Model</label>
                     <div class="col-sm-10">
                         <select
                             class="form-select"
-                            name="model"
+                            id="ai_model"
+                            name="ai_model"
                         >
                             <option value="">Select AI Model</option>
                             @forelse ($openAiModelList as $key => $value)
-                                <option value="{{ $value }}">{{ $key }}</option>
+                                <option
+                                    value="{{ $value }}"
+                                    @selected(old('ai_model') == $value)
+                                    @selected($configs['ai_model'] == $value)
+                                >{{ $key }}</option>
                             @empty
                             @endforelse
                         </select>
@@ -55,14 +42,20 @@
                 <div class="mb-3 row">
                     <label
                         class="col-sm-2 col-form-label"
-                        for="key"
+                        data-coreui-toggle="tooltip"
+                        data-coreui-html="true"
+                        for="max_token"
+                        title="The maximum number of tokens to generate in the completion"
                     > Max Token</label>
                     <div class="col-sm-10">
                         <input
                             class="form-control"
+                            id="max_token"
                             name="max_token"
-                            type="number"
+                            type="text"
+                            value="{{ old('max_token', $configs['max_token'] ?? null) }}"
                             placeholder="200"
+                            mask-type="number"
                         >
                     </div>
                 </div>
@@ -70,14 +63,22 @@
                 <div class="mb-3 row">
                     <label
                         class="col-sm-2 col-form-label"
-                        for="key"
+                        data-coreui-toggle="tooltip"
+                        data-coreui-html="true"
+                        for="temperature"
+                        title="Sampling temperature to use, between 0 and 2. Higher values will make the output random, lower value will make it more focused."
                     > Temperature</label>
                     <div class="col-sm-10">
                         <input
                             class="form-control"
-                            name="max_token"
-                            type="number"
-                            placeholder="200"
+                            id="temperature"
+                            name="temperature"
+                            type="text"
+                            value="{{ old('temperature', $configs['temperature'] ?? null) }}"
+                            placeholder="1.0"
+                            mask-type="number"
+                            min="0"
+                            max="2"
                         >
                     </div>
                 </div>
@@ -85,16 +86,19 @@
                 <div class="mb-3 row">
                     <label
                         class="col-sm-2 col-form-label"
-                        for="key"
-                    > Prompt</label>
+                        data-coreui-toggle="tooltip"
+                        data-coreui-html="true"
+                        for="prompt"
+                        title="The prompt template to generate completions"
+                    > Prompt Template</label>
                     <div class="col-sm-10">
                         <textarea
                             class="form-control"
-                            id=""
+                            id="prompt"
                             name="prompt"
                             cols="30"
                             rows="10"
-                        ></textarea>
+                        >{{ old('prompt', $configs['prompt'] ?? '') }}</textarea>
                     </div>
                 </div>
 
@@ -102,4 +106,28 @@
             </form>
         </div>
     </div>
+
+    @push('scripts')
+        <script src="https://unpkg.com/imask"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const formNumber = document.querySelectorAll('form input[mask-type=number]');
+
+                //apply mask number
+                formNumber.forEach(el => {
+                    IMask(el, {
+                        mask: Number, // enable number mask
+                        scale: 2, // digits after point, 0 for integers
+                        signed: false, // disallow negative
+                        thousandsSeparator: '', // any single char
+                        padFractionalZeros: false, // if true, then pads zeros at end to the length of scale
+                        normalizeZeros: true, // appends or removes zeros at ends
+                        radix: '.', // fractional delimiter
+                        mapToRadix: ['.'], // symbols to process as radix
+                    })
+                })
+            })
+        </script>
+    @endpush
 </x-app-layout>

@@ -17,7 +17,7 @@ class AppConfigurationController extends Controller
     public function openAiConfigIndex()
     {
         $data = \App\Models\Config::where('key', 'api_key')->first();
-        $apiKey = $data ? Crypt::decryptString($data['value']) : null;
+        $apiKey = $data && isset($data->value) ? Crypt::decryptString($data['value']) : null;
 
         return view('pages.configurations.openai.index', compact('apiKey'));
     }
@@ -48,12 +48,28 @@ class AppConfigurationController extends Controller
 
     public function openAiPromptIndex()
     {
+        $configs = \App\Models\Config::whereIn('key', ['ai_model', 'max_token', 'temperature', 'prompt'])->get()->pluck('value', 'key');
         $openAiModelList = \App\Models\Config::OPENAI_MODEL;
-        return view('pages.configurations.prompt.index', compact('openAiModelList'));
+        return view('pages.configurations.prompt.index', compact('openAiModelList', 'configs'));
     }
 
     public function openAiPromptStore(Request $request)
     {
-        //
+        $data = $request->validate([
+            'ai_model'         => 'required|string|in:' . implode(",", array_values(\App\Models\Config::OPENAI_MODEL)),
+            'max_token'     => 'nullable|numeric',
+            'temperature'   => 'nullable|numeric|min:0|max:2',
+            'prompt'        => 'required|string'
+        ]);
+
+        foreach ($data as $key => $value) {
+            \App\Models\Config::updateOrCreate([
+                'key'   => $key,
+            ], [
+                'value' => $value
+            ]);
+        }
+
+        return response('OK');
     }
 }

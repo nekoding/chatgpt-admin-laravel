@@ -18,5 +18,20 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $configSeeder = [
+            'api_key'       => null,
+            'max_token'     => null,
+            'temperature'   => null,
+            'prompt'        => 'example prompt',
+            'ai_model'      => \App\Models\Config::OPENAI_MODEL["GPT3Dot5Turbo"]
+        ];
+
+        foreach ($configSeeder as $key => $value) {
+            \App\Models\Config::create([
+                'key'   => $key,
+                'value' => $value
+            ]);
+        }
     }
 }

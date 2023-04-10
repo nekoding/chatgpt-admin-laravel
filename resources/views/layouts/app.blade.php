@@ -174,8 +174,18 @@
     <script src="{{ asset('/coreui/vendors/@coreui/chartjs/js/coreui-chartjs.js') }}"></script>
     <script src="{{ asset('/coreui/vendors/@coreui/utils/js/coreui-utils.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
 
     @stack('scripts')
+
+    <script>
+        // load tooltip
+        document.addEventListener('DOMContentLoaded', () => {
+            const tooltipTriggerList = document.querySelectorAll('[data-coreui-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new coreui.Tooltip(
+                tooltipTriggerEl))
+        })
+    </script>
 </body>
 
 </html>
