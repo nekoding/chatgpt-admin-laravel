@@ -1,15 +1,20 @@
-version: '3'
-
 services:
 
-  database:
+  mysql:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: diablo
+      MYSQL_ROOT_PASSWORD: 'diablo'
+    volumes:
+      - "./mysql:/var/lib/mysql"
+    networks:
+      - tarot
 
   app:
-    image: .
+    build:
+      context: ../.
+      dockerfile: Dockerfile.prod
+    image: tarotapp
     environment:
       - APP_URL=http://localhost
       - APP_DEBUG=false
@@ -20,5 +25,14 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=diablo
     ports:
-      - 9001:9000
-      
+      - 9001:80
+    volumes:
+      - "./storage:/var/www/html/storage"
+    networks:
+      - tarot
+    depends_on:
+      - mysql
+
+networks:
+  tarot:
+    driver: bridge
