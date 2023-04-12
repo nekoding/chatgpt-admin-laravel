@@ -3,7 +3,8 @@ FROM php:8.2-fpm-alpine as webserver
 WORKDIR /var/www/html/
 
 # Essentials
-RUN addgroup -S appkey && adduser -S appkey -G appkey
+RUN addgroup -g 1000 -S www-data \
+    && adduser -u 1000 -D -S -G www-data www-data
 RUN apk update && apk upgrade && apk add --no-cache zip unzip curl sqlite nginx supervisor bash nodejs npm
 
 # Enable extension
@@ -11,10 +12,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions; \
     install-php-extensions zip gd pdo_mysql
 
-# Installing composer
-RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
-RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-RUN rm -rf composer-setup.php
+RUN rm /var/cache/apk/*
 
 # Configure supervisor
 RUN mkdir -p /etc/supervisor.d/
@@ -31,31 +29,6 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 # Configure PHP FPM
 COPY .docker/config/php.ini /var/local/etc/php
 COPY .docker/config/php-fpm.conf /var/local/etc
-
-# Building process
-ENV COMPOSER_ALLOW_SUPERUSER=1
-COPY . .
-RUN composer install --no-dev
-
-# Setup permission
-RUN chown -R www-data:www-data /var/www/html
-RUN find /var/www/html/ -type f -exec chmod 644 {} \;
-RUN find /var/www/html/ -type d -exec chmod 755 {} \;
-RUN chgrp -R www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R ug+rwx /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Generate key
-RUN cp .env.example .env
-RUN php artisan key:generate
-
-# Build resource
-RUN npm i && npm run build
-RUN rm -rf ./node-modules
-
-# Run laravel optimization
-RUN php artisan optimize:clear
-RUN php artisan optimize
-# RUN php artisan migrate:fresh --seed
 
 EXPOSE 80
 

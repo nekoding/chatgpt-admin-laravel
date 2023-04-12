@@ -1,40 +1,47 @@
 services:
 
-  mysql:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: 'laravel'
-    volumes:
-      - "./mysql:/var/lib/mysql"
-    networks:
-      - tarot
-
-  app:
+  fpm:
     build:
-      context: ../.
-      dockerfile: Dockerfile.prod
-    image: tarotapp
+      context: ./
+      dockerfile: fpm.dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ../.:/var/www/html
     environment:
-      - APP_URL=http://localhost
-      - APP_DEBUG=false
-      # - DB_CONNECTION=mysql
-      # - DB_HOST=mysql
-      # - DB_PORT=3306
-      # - DB_DATABASE=admin_tarot
-      # - DB_USERNAME=appkey
-      # - DB_PASSWORD=diablo
+      - DB_PORT=3306
+      - DB_HOST=database
+    networks:
+      - laravel_app
+    depends_on:
+      - database
+  nginx:
+    build:
+      context: ./
+      dockerfile: nginx.dockerfile
+    working_dir: /var/www/html
+    volumes_from:
+      - fpm
+    networks:
+      - laravel_app
     ports:
       - 9001:80
+
+  database:
+    image: mysql:8
     volumes:
-      - "../storage:/var/www/html/storage"
+      - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: 'admin_app'
+      MYSQL_USER: 'appkey'
+      MYSQL_PASSWORD: 'appkey'
+      MYSQL_ROOT_PASSWORD: 'appkey'
+      MYSQL_ROOT_HOST: '%'
     networks:
-      - tarot
-    depends_on:
-      - mysql
+      - laravel_app
 
 networks:
-  tarot:
+  laravel_app:
     driver: bridge
+
+volumes:
+  dbdata:
