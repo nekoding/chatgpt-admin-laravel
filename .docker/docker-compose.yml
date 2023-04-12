@@ -28,6 +28,14 @@ services:
       - laravel_app
     ports:
       - 9001:80
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '1'
+          memory: 128M
 
   database:
     image: mysql:8
@@ -41,6 +49,14 @@ services:
       MYSQL_ROOT_HOST: '%'
     networks:
       - laravel_app
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 412M
 
 networks:
   laravel_app:
