@@ -43,3 +43,7 @@ Dispose docker image and volume
 ```sh
 docker compose -f .docker/docker-compose.yml down -v
 ```
+
+### Postman API Info
+
+[Download Postman JSON](https://api.postman.com/collections/11794634-4120312c-c4dc-4053-a1ea-e932f9ecf649?access_key=PMAT-01GXST70S9D72TTBF0FMT3VNA7)
