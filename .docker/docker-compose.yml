@@ -4,9 +4,12 @@ services:
     build:
       context: ./
       dockerfile: fpm.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     working_dir: /var/www/html
     volumes:
-      - ../.:/var/www/html
+      - ../.:/var/www/html:rw
     environment:
       - DB_PORT=3306
       - DB_HOST=database
