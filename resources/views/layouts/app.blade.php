@@ -117,6 +117,14 @@
     >
 
     <!-- Styles -->
+
+    <style>
+        .sidebar {
+            --cui-sidebar-green: #10a37f !important;
+            --cui-sidebar-black: #202123 !important;
+        }
+    </style>
+
     <link
         href="{{ asset('/coreui/vendors/simplebar/css/simplebar.css') }}"
         rel="stylesheet"
@@ -144,6 +152,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/app.scss'])
+
     <script
         defer
         src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"
