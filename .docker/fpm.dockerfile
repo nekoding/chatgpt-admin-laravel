@@ -5,6 +5,7 @@ ARG GID
 
 ENV UID=${UID}
 ENV GID=${GID}
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apk --update add wget \
     curl \
@@ -36,5 +37,10 @@ RUN adduser -G laravel --system -D -s /bin/sh -u ${UID} laravel
 
 RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf
+
+# Installing composer
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RUN rm -rf composer-setup.php
 
 ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
