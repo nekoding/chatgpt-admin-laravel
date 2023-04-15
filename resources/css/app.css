@@ -44,3 +44,7 @@
 :root {
     --cui-link-hover-color: #74aa9c !important;
 }
+
+.dropdown-menu {
+    --cui-dropdown-link-active-bg: #74aa9c !important;
+}
