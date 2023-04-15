@@ -1,0 +1,31 @@
+.sidebar-toggler {
+    background: #3e3e3e !important;
+}
+
+.sidebar-brand {
+    background: #3e3e3e !important;
+}
+
+.sidebar {
+    --cui-sidebar-bg: #4d4d4d!important;
+    --cui-sidebar-nav-link-active-bg: #545454 !important;
+    --cui-sidebar-nav-link-hover-bg: #545454 !important;
+}
+
+.header {
+    --cui-header-bg: #ebedef !important;
+}
+
+.card {
+    --cui-card-cap-bg: #f7f7f8 !important;
+}
+
+.bg-gray {
+    --cui-card-bg: #f7f7f8 !important;
+    background-color: var(--cui-card-bg);
+    color: #000 !important;
+}
+
+.border-none {
+    border: none !important;
+}

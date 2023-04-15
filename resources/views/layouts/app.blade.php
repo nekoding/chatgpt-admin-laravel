@@ -117,14 +117,6 @@
     >
 
     <!-- Styles -->
-
-    <style>
-        .sidebar {
-            --cui-sidebar-green: #10a37f !important;
-            --cui-sidebar-black: #202123 !important;
-        }
-    </style>
-
     <link
         href="{{ asset('/coreui/vendors/simplebar/css/simplebar.css') }}"
         rel="stylesheet"
@@ -165,7 +157,7 @@
 
     @include('layouts.partials.sidebar')
 
-    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+    <div class="wrapper d-flex flex-column min-vh-100">
         @include('layouts.partials.appheader')
 
         <div class="body flex-grow-1 px-3">

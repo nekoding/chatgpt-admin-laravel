@@ -1,7 +1,6 @@
 <div
     class="sidebar sidebar-dark sidebar-fixed"
     id="sidebar"
-    style="background: var(--cui-sidebar-green);"
 >
     <div class="sidebar-brand d-none d-md-flex">
         <h1>{{ config('app.name', 'Laravel') }}</h1>

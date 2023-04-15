@@ -84,7 +84,7 @@
                     </form>
                 </div>
                 @if (Route::has('register'))
-                    <div class="card col-md-5 text-white bg-primary py-5">
+                    <div class="card col-md-5 text-white bg-black py-5">
                         <div class="card-body text-center">
                             <div>
                                 <h2 class="mb-5">Sign up</h2>
