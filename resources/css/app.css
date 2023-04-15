@@ -39,6 +39,7 @@
     --cui-pagination-active-bg: #74aa9c !important;
     --cui-pagination-active-border-color: #74aa9c !important;
     --cui-pagination-color: #74aa9c !important;
+    --cui-pagination-focus-box-shadow: none !important;
 }
 
 :root {
