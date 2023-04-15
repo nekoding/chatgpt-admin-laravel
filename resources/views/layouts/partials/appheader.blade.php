@@ -78,7 +78,7 @@
                         </div>
                         <a
                             class="dropdown-item"
-                            href="#"
+                            href="{{ route('profile.edit') }}"
                         >
                             <i class="icon me-2 cil-user"></i>Profil</a>
                         <div class="dropdown-divider"></div>
