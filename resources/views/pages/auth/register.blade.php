@@ -90,7 +90,7 @@
                     </div>
 
                     <button
-                        class="btn btn-block btn-success text-white"
+                        class="btn btn-block btn-tosca text-white"
                         type="button"
                     >{{ __('Register') }}</button>
                 </form>

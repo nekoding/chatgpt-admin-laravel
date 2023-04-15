@@ -257,7 +257,7 @@
                 </div>
 
                 <div class="mb-3 row flex-row-reverse">
-                    <button class="btn btn-success text-white col-lg-1 col-12 me-2">Save</button>
+                    <button class="btn btn-tosca text-white col-lg-1 col-12 me-2">Save</button>
                 </div>
             </form>
         </div>

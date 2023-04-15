@@ -29,3 +29,18 @@
 .border-none {
     border: none !important;
 }
+
+.btn-tosca {
+    background: #74aa9c !important;
+    color: #fff !important;
+}
+
+.pagination {
+    --cui-pagination-active-bg: #74aa9c !important;
+    --cui-pagination-active-border-color: #74aa9c !important;
+    --cui-pagination-color: #74aa9c !important;
+}
+
+:root {
+    --cui-link-hover-color: #74aa9c !important;
+}

@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <button class="btn btn-success text-white col-lg-1 col-12 ms-2 mt-3">{{ __('Save') }}</button>
+                    <button class="btn btn-tosca text-white col-lg-1 col-12 ms-2 mt-3">{{ __('Save') }}</button>
                 </div>
             </form>
         </div>

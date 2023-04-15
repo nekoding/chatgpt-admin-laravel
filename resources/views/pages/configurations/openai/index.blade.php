@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary col-12 col-lg-1">Save</button>
+                <button class="btn btn-tosca col-12 col-lg-1">Save</button>
             </form>
         </div>
     </div>

@@ -5,11 +5,11 @@
     }"
 >
     <a
-        class="btn btn-primary"
+        class="btn btn-tosca"
         href="{{ route('cards.edit', ['card' => $card->id]) }}"
     >Edit</a>
     <button
-        class="btn btn-danger text-white"
+        class="btn btn-tosca text-white"
         type="button"
         @click="() => {
             Swal.fire({

@@ -6,13 +6,13 @@
 
                 <div class="d-flex align-items-center gap-2">
                     <button
-                        class="btn btn-success text-white"
+                        class="btn btn-tosca text-white"
                         data-coreui-toggle="modal"
                         data-coreui-target="#importdata"
                         type="button"
                     >Import</button>
                     <a
-                        class="btn btn-success text-white"
+                        class="btn btn-tosca text-white"
                         href="{{ route('languages.create') }}"
                     >Add</a>
                 </div>
@@ -36,7 +36,7 @@
         <x-slot:footer>
             <div x-data="">
                 <button
-                    class="btn btn-secondary"
+                    class="btn btn-tosca"
                     data-coreui-dismiss="modal"
                     type="button"
                 >Close</button>

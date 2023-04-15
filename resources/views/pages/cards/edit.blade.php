@@ -102,7 +102,7 @@
 
                 <div class="mb-3 row">
                     <button
-                        class="btn btn-success text-white col-12 col-md-4 col-lg-1 ms-lg-2"
+                        class="btn btn-tosca text-white col-12 col-md-4 col-lg-1 ms-lg-2"
                         type="submit"
                     >Save</button>
                 </div>

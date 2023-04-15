@@ -66,7 +66,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <button
-                                    class="btn btn-primary px-4"
+                                    class="btn btn-tosca px-4"
                                     type="submit"
                                 >Login</button>
                             </div>

@@ -2,8 +2,11 @@
     class="sidebar sidebar-dark sidebar-fixed"
     id="sidebar"
 >
-    <div class="sidebar-brand d-none d-md-flex">
-        <h1>{{ config('app.name', 'Laravel') }}</h1>
+    <div
+        class="sidebar-brand d-none d-md-flex"
+        style="padding: 0 1rem; justify-content: start !important;"
+    >
+        <h3>{{ config('app.name', 'Laravel') }}</h3>
     </div>
     <ul
         class="sidebar-nav"

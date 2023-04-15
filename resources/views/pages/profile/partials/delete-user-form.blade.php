@@ -10,7 +10,7 @@
             </p>
 
             <button
-                class="btn btn-danger text-white"
+                class="btn btn-tosca text-white"
                 x-data="{
                     deleteUrl: '{{ route('profile.destroy') }}'
                 }"

@@ -6,7 +6,7 @@
 
                 <div class="d-flex align-items-center gap-2">
                     <a
-                        class="btn btn-success text-white"
+                        class="btn btn-tosca text-white"
                         href="{{ route('cards.create') }}"
                     >Add</a>
                 </div>
