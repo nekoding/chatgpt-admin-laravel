@@ -15,7 +15,9 @@ class CardReversedResource extends JsonResource
     public function toArray(Request $request): array
     {
         $default = ['default' => $this->reversedLang ? $this->reversedLang->default : $this->reversed];
-        $translates = $this->reversedLang->translates->pluck('text', 'lang_code');
+        // $translates = $this->reversedLang->translates->pluck('text', 'lang_code');
+
+        $translates = $this->reversedLang->translates?->map(fn($item) => ['locale' => $item->text])->first() ?? ['locale' => null];
 
         return [
             ...$default,

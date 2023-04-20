@@ -18,6 +18,11 @@ class CardController extends Controller
             'random_order'  => 'nullable|boolean'
         ]);
 
+        // handle limit abuse
+        if (isset($params['limit'])) {
+            $params['limit'] = 50;
+        }
+
         $cards = \App\Models\Card::limit($params['limit'] ?? 20)->with([
             'titleLang.translates' => fn ($query) => $query->where('lang_code', $params['locale']),
             'uprightLang.translates' => fn ($query) => $query->where('lang_code', $params['locale']),
