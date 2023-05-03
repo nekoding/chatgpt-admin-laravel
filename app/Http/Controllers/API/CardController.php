@@ -20,7 +20,12 @@ class CardController extends Controller
 
         // handle limit abuse
         if (isset($params['limit'])) {
-            $params['limit'] = 50;
+
+            // if user try to spam limit data with more than 50
+            // set 50 data only
+            if ($params['limit'] > 50) {
+                $params['limit'] = 50;
+            }
         }
 
         $cards = \App\Models\Card::limit($params['limit'] ?? 20)->with([
