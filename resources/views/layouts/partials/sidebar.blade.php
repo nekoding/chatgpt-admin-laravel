@@ -41,7 +41,7 @@
                 <i class="cil-keyboard nav-icon"></i> Tarot Reading Category</a></li>
         <li class="nav-item"><a
                 class="nav-link"
-                href="#"
+                href="{{ route('prompts.index') }}"
             >
                 <i class="cil-keyboard nav-icon"></i> OpenAI Prompt</a></li>
         {{-- Configuration --}}
