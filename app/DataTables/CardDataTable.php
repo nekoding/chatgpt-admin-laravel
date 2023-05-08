@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\DataTables\Style\DatatableStyle;
 use App\Models\Card;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -14,6 +15,9 @@ use Yajra\DataTables\Services\DataTable;
 
 class CardDataTable extends DataTable
 {
+
+    use DatatableStyle;
+
     /**
      * Build the DataTable class.
      *
@@ -83,10 +87,7 @@ class CardDataTable extends DataTable
             ->setTableId('card-table')
             ->columns($this->getColumns())
             ->addTableClass('w-100')
-            ->dom("<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" .
-                "<'row mt-2'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'p>>" .
-                "<'row'<'col-sm-12'tr>>" .
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>")
+            ->dom($this->getDataTableDomConfiguration())
             ->minifiedAjax()
             ->orderBy(1)
             ->buttons([

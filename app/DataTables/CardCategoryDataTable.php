@@ -2,8 +2,7 @@
 
 namespace App\DataTables;
 
-use App\DataTables\Style\DatatableStyle;
-use App\Models\Language;
+use App\Models\CardCategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -13,11 +12,8 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class LanguageDataTable extends DataTable
+class CardCategoryDataTable extends DataTable
 {
-
-    use DatatableStyle;
-
     /**
      * Build the DataTable class.
      *
@@ -26,28 +22,28 @@ class LanguageDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('translates.en_us', function (Language $language) {
-                return $language->translates->where('lang_code', 'en_us')->first()?->text ?? '-';
+            ->addColumn('translates.en_us', function (CardCategory $cardCategory) {
+                return $cardCategory->translates->where('lang_code', 'en_us')->first()?->text ?? '-';
             })
-            ->addColumn('translates.en_uk', function (Language $language) {
-                return $language->translates->where('lang_code', 'en_uk')->first()?->text ?? '-';
+            ->addColumn('translates.en_uk', function (CardCategory $cardCategory) {
+                return $cardCategory->translates->where('lang_code', 'en_uk')->first()?->text ?? '-';
             })
-            ->addColumn('translates.ja_jp', function (Language $language) {
-                return $language->translates->where('lang_code', 'ja_jp')->first()?->text ?? '-';
+            ->addColumn('translates.ja_jp', function (CardCategory $cardCategory) {
+                return $cardCategory->translates->where('lang_code', 'ja_jp')->first()?->text ?? '-';
             })
-            ->addColumn('translates.in_id', function (Language $language) {
-                return $language->translates->where('lang_code', 'in_id')->first()?->text ?? '-';
+            ->addColumn('translates.in_id', function (CardCategory $cardCategory) {
+                return $cardCategory->translates->where('lang_code', 'in_id')->first()?->text ?? '-';
             })
-            ->addColumn('translates.zh_cn', function (Language $language) {
-                return $language->translates->where('lang_code', 'zh_cn')->first()?->text ?? '-';
+            ->addColumn('translates.zh_cn', function (CardCategory $cardCategory) {
+                return $cardCategory->translates->where('lang_code', 'zh_cn')->first()?->text ?? '-';
             })
             ->filterColumn('translates.en_us', function ($query, $keyword) {
                 return $query->whereHas('translates', function ($q) use (&$keyword) {
                     return $q->where('text', 'like', '%' . $keyword . '%');
                 });
             })
-            ->editColumn('action', function (Language $language) {
-                return view('pages.languages.datatable_action', compact('language'));
+            ->editColumn('action', function (CardCategory $cardCategory) {
+                return view('pages.card_category.datatable_action', compact('language'));
             })
             ->addIndexColumn()
             ->setRowId('id')
@@ -57,12 +53,9 @@ class LanguageDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Language $model): QueryBuilder
+    public function query(CardCategory $model): QueryBuilder
     {
-        return $model
-            ->with('translates')
-            ->select('languages.*')
-            ->newQuery();
+        return $model->newQuery();
     }
 
     /**
@@ -74,12 +67,12 @@ class LanguageDataTable extends DataTable
             ->pageLength(50)
             ->addTableClass('w-100')
             ->responsive(true)
-            ->setTableId('language-table')
+            ->setTableId('cardcategory-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom($this->getDataTableDomConfiguration())
+            //->dom('Bfrtip')
             ->orderBy(8)
-            // ->selectStyleSingle()
+            ->selectStyleSingle()
             ->buttons([
                 // Button::make('excel'),
                 // Button::make('csv'),
@@ -118,6 +111,6 @@ class LanguageDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Language_' . date('YmdHis');
+        return 'CardCategory_' . date('YmdHis');
     }
 }
