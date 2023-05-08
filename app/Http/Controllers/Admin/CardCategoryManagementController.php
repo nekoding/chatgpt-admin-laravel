@@ -6,6 +6,7 @@ use App\DataTables\CardCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Imports\CardCategoryImport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CardCategoryManagementController extends Controller
@@ -31,7 +32,35 @@ class CardCategoryManagementController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // https://learn.microsoft.com/en-us/linkedin/shared/references/reference-tables/language-codes
+        $data = $request->validate([
+            'title_id'          => 'required|string|unique:card_categories,title_id',
+            'default'           => 'required|string',
+            'translations'      => 'nullable|array',
+            'translations.*'    => 'nullable|string'
+        ]);
+
+        try {
+            // create language
+            $lang = \App\Models\CardCategory::create($data);
+
+            // create language translations
+            foreach ($data['translations'] as $codes => $value) {
+                $lang->translates()->create([
+                    'lang_code'     => $codes,
+                    'text'          => $value
+                ]);
+            }
+
+            return redirect()->route('languages.index')->with('success', 'Data saved');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage(), [
+                'line' => $th->getLine(),
+                'file' => $th->getFile()
+            ]);
+
+            return redirect()->route('languages.index')->with('success', 'Data saved');
+        }
     }
 
     /**
@@ -39,7 +68,10 @@ class CardCategoryManagementController extends Controller
      */
     public function edit(string $id)
     {
-        return view('pages.card_category.edit');
+        $cardCategory = \App\Models\CardCategory::findOrFail($id);
+        $translates = $cardCategory->translates->pluck('text', 'lang_code');
+
+        return view('pages.card_category.edit', compact('cardCategory', 'translates'));
     }
 
     /**
@@ -47,7 +79,29 @@ class CardCategoryManagementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'title_id'          => 'required|string|unique:card_categories,title_id,' . $id . ',id',
+            'default'           => 'required|string',
+            'translations'      => 'nullable|array',
+            'translations.*'    => 'nullable|string'
+        ]);
+
+        // create language
+        $lang = \App\Models\CardCategory::findOrFail($id);
+
+        // update lang
+        $lang->update($data);
+
+        // update language translations
+        foreach ($data['translations'] as $codes => $value) {
+            $lang->translates()->updateOrCreate([
+                'lang_code'     => $codes,
+            ], [
+                'text'          => $value
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Data saved');
     }
 
     /**

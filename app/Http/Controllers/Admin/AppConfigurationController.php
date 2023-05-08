@@ -48,7 +48,7 @@ class AppConfigurationController extends Controller
 
     public function openAiPromptIndex()
     {
-        $configs = \App\Models\Config::whereIn('key', ['ai_model', 'max_token', 'temperature', 'prompt'])->get()->pluck('value', 'key');
+        $configs = \App\Models\Config::whereIn('key', ['ai_model', 'max_token', 'temperature'])->get()->pluck('value', 'key');
         $openAiModelList = \App\Models\Config::OPENAI_MODEL;
         return view('pages.configurations.prompt.index', compact('openAiModelList', 'configs'));
     }
@@ -56,10 +56,9 @@ class AppConfigurationController extends Controller
     public function openAiPromptStore(Request $request)
     {
         $data = $request->validate([
-            'ai_model'         => 'required|string|in:' . implode(",", array_values(\App\Models\Config::OPENAI_MODEL)),
+            'ai_model'      => 'required|string|in:' . implode(",", array_values(\App\Models\Config::OPENAI_MODEL)),
             'max_token'     => 'nullable|numeric',
             'temperature'   => 'nullable|numeric|min:0|max:2',
-            'prompt'        => 'required|string'
         ]);
 
         foreach ($data as $key => $value) {

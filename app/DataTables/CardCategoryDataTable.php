@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\DataTables\Style\DatatableStyle;
 use App\Models\CardCategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -14,6 +15,9 @@ use Yajra\DataTables\Services\DataTable;
 
 class CardCategoryDataTable extends DataTable
 {
+
+    use DatatableStyle;
+
     /**
      * Build the DataTable class.
      *
@@ -43,7 +47,7 @@ class CardCategoryDataTable extends DataTable
                 });
             })
             ->editColumn('action', function (CardCategory $cardCategory) {
-                return view('pages.card_category.datatable_action', compact('language'));
+                return view('pages.card_category.datatable_action', compact('cardCategory'));
             })
             ->addIndexColumn()
             ->setRowId('id')
@@ -55,7 +59,10 @@ class CardCategoryDataTable extends DataTable
      */
     public function query(CardCategory $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model
+            ->with('translates')
+            ->select('card_categories.*')
+            ->newQuery();
     }
 
     /**
@@ -71,6 +78,7 @@ class CardCategoryDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
+            ->dom($this->getDataTableDomConfiguration())
             ->orderBy(8)
             ->selectStyleSingle()
             ->buttons([

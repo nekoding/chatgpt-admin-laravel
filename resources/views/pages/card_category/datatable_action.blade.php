@@ -1,13 +1,13 @@
 <div
     class="d-flex align-items-center gap-2"
     x-data="{
-        deleteUrl: '{{ route('languages.destroy', ['language' => $language->id]) }}'
+        deleteUrl: '{{ route('card-categories.destroy', ['card_category' => $cardCategory->id]) }}'
     }"
 >
     <a
         class="btn btn-tosca"
-        href="{{ route('languages.edit', [
-            'language' => $language->id,
+        href="{{ route('card-categories.edit', [
+            'card_category' => $cardCategory->id,
         ]) }}"
     >Edit</a>
     <button
@@ -28,7 +28,7 @@
                   .then(res => {
                     Swal.fire(
                         'Deleted!',
-                        'Your file has been deleted.',
+                        'Your data has been deleted.',
                         'success'
                     )
                   })
@@ -40,7 +40,7 @@
                     )
                   })
                   .finally(() => {
-                    window.LaravelDataTables['language-table'].ajax.reload()
+                    window.LaravelDataTables['cardcategory-table'].ajax.reload()
                   })
                 }
             })

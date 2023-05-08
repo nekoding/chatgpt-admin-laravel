@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="card mb-4">
         <div class="card-header">
-            <h5>OpenAI Prompt Management</h5>
+            <h5>OpenAI Prompt Configuration</h5>
         </div>
         <div
             class="card-body"
@@ -82,26 +82,6 @@
                         >
                     </div>
                 </div>
-
-                <div class="mb-3 row">
-                    <label
-                        class="col-sm-2 col-form-label"
-                        data-coreui-toggle="tooltip"
-                        data-coreui-html="true"
-                        for="prompt"
-                        title="The prompt template to generate completions"
-                    > Prompt Template</label>
-                    <div class="col-sm-10">
-                        <textarea
-                            class="form-control"
-                            id="prompt"
-                            name="prompt"
-                            cols="30"
-                            rows="10"
-                        >{{ old('prompt', $configs['prompt'] ?? '') }}</textarea>
-                    </div>
-                </div>
-
                 <button class="btn btn-tosca col-12 col-lg-1">Save</button>
             </form>
         </div>

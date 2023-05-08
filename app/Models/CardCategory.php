@@ -19,6 +19,6 @@ class CardCategory extends Model
 
     public function translates(): HasMany
     {
-        return $this->hasMany(CardCategoryTranslation::class, 'lang_id', 'id');
+        return $this->hasMany(CardCategoryTranslation::class, 'card_cat_id', 'id');
     }
 }

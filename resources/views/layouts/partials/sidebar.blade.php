@@ -55,7 +55,7 @@
                 class="nav-link"
                 href="{{ route('config.prompt.index') }}"
             >
-                <i class="cib-probot nav-icon"></i> OpenAI Configuration</a></li>
+                <i class="cib-probot nav-icon"></i> Prompt Configuration</a></li>
         {{-- <li class="nav-group"><a
                 class="nav-link nav-group-toggle"
                 href="#"
