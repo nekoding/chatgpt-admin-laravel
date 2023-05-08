@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('image_path');
             $table->text('title');
             $table->text('upright');
             $table->text('reversed');

@@ -29,6 +29,22 @@
                 href="{{ route('cards.index') }}"
             >
                 <i class="cil-filter-photo nav-icon"></i> Cards</a></li>
+        <li class="nav-item"><a
+                class="nav-link"
+                href="{{ route('card-categories.index') }}"
+            >
+                <i class="cil-font nav-icon"></i> Card Category</a></li>
+        <li class="nav-item"><a
+                class="nav-link"
+                href="{{ route('prompt-categories.index') }}"
+            >
+                <i class="cil-keyboard nav-icon"></i> Tarot Reading Category</a></li>
+        <li class="nav-item"><a
+                class="nav-link"
+                href="#"
+            >
+                <i class="cil-keyboard nav-icon"></i> OpenAI Prompt</a></li>
+        {{-- Configuration --}}
         <li class="nav-title">Configuration</li>
         <li class="nav-item"><a
                 class="nav-link"
@@ -39,7 +55,7 @@
                 class="nav-link"
                 href="{{ route('config.prompt.index') }}"
             >
-                <i class="cib-probot nav-icon"></i> OpenAI Prompt</a></li>
+                <i class="cib-probot nav-icon"></i> OpenAI Configuration</a></li>
         {{-- <li class="nav-group"><a
                 class="nav-link nav-group-toggle"
                 href="#"

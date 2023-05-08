@@ -17,17 +17,61 @@
             >
                 @method('PUT')
                 @csrf
+
+                {{-- Classic Card --}}
                 <div class="mb-3 row">
                     <label
                         class="col-sm-2 col-form-label"
                         for="titleId"
-                    >Card Image <span class="text-danger fw-bold">*</span></label>
+                    >Card Classic<span class="text-danger fw-bold">*</span></label>
                     <div class="col-sm-10 position-relative">
                         <input
-                            class="uploader"
-                            name="image"
+                            class="uploader @error('image_classic') is-invalid @enderror"
+                            name="image_classic"
                             type="file"
                         >
+
+                        @error('image_classic')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- Realistic Card --}}
+                <div class="mb-3 row">
+                    <label
+                        class="col-sm-2 col-form-label"
+                        for="titleId"
+                    >Card Animation</label>
+                    <div class="col-sm-10 position-relative">
+                        <input
+                            class="uploader @error('image_animation') is-invalid @enderror"
+                            name="image_animation"
+                            type="file"
+                        >
+
+                        @error('image_animation')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- Anime card --}}
+                <div class="mb-3 row">
+                    <label
+                        class="col-sm-2 col-form-label"
+                        for="titleId"
+                    >Card Realistic</label>
+                    <div class="col-sm-10 position-relative">
+                        <input
+                            class="uploader @error('image_realistic') is-invalid @enderror"
+                            name="image_realistic"
+                            type="file"
+                        >
+
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -151,6 +195,8 @@
 
 
         <script>
+            const cardImages = @json($card->images);
+
             $(function() {
                 $('.form-select').select2();
 
@@ -158,24 +204,29 @@
                 $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
                 $.fn.filepond.registerPlugin(FilePondPluginFilePoster);
 
-                const configs = {
-                    files: [{
-                        source: '{{ $card->id }}',
-                        options: {
-                            type: 'local',
-                            file: {
-                                name: '{{ $card->title }}',
-                                size: 1001025,
-                                type: 'image/jpg'
+                // attach to each filepond handler
+                cardImages.forEach(item => {
+                    const configs = {
+                        files: [{
+                            source: item.id,
+                            options: {
+                                type: 'local',
+                                file: {
+                                    name: item.filename,
+                                    size: item.image_size,
+                                    type: item.mime_type
+                                },
+                                metadata: {
+                                    poster: '{{ asset('storage/') }}' + '/' + item.image_path,
+                                },
                             },
-                            metadata: {
-                                poster: '{{ asset('storage/' . $card->image_path) }}',
-                            },
-                        },
-                    }],
-                }
+                        }],
+                    }
 
-                $('.uploader').filepond(configs);
+                    $(`.uploader[name=${item.data.card_key}]`).filepond(configs);
+                });
+
+                // render filepond
                 $('.uploader').filepond('allowMultiple', false);
                 $('.uploader').filepond('storeAsFile', true);
                 $('.uploader').filepond('filePosterHeight', 400);

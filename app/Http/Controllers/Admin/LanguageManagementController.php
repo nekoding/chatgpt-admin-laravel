@@ -12,16 +12,6 @@ class LanguageManagementController extends Controller
 {
 
     /**
-     * Allowed import mimetype
-     *
-     * @var array
-     */
-    private $allowedMimeTypes = [
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    ];
-
-    /**
      * Display a listing of the resource.
      * 
      * @param \App\DataTables\LanguageDataTable $languageDataTable

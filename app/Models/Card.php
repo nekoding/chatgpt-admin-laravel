@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Card extends Model
@@ -13,7 +14,6 @@ class Card extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $fillable = [
-        'image_path',
         'title',
         'upright',
         'reversed',
@@ -32,5 +32,15 @@ class Card extends Model
     public function reversedLang(): BelongsTo
     {
         return $this->belongsTo(Language::class, 'reversed', 'title_id');
+    }
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable', 'model_type', 'model_id');
+    }
+
+    public function getPrimaryCardKey(): string
+    {
+        return 'image_classic';
     }
 }

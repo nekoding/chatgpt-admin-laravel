@@ -26,7 +26,8 @@ class CardDataTable extends DataTable
                 return view('pages.cards.datatable_action', compact('card'));
             })
             ->addColumn('thumbnail', function (Card $card) {
-                return view('pages.cards.thumbnail', compact('card'));
+                $image = $card->images->filter(fn ($image) => $image->data['card_key'] == $card->getPrimaryCardKey())->first();
+                return view('pages.cards.thumbnail', compact('card', 'image'));
             })
             ->filterColumn('title_lang.default', function ($query, $keyword) {
                 return $query->whereHas('titleLang', function ($q) use (&$keyword) {
@@ -66,7 +67,8 @@ class CardDataTable extends DataTable
             ->with([
                 'titleLang',
                 'uprightLang',
-                'reversedLang'
+                'reversedLang',
+                'images'
             ])
             ->select('cards.*')
             ->newQuery();
