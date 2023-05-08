@@ -83,6 +83,10 @@ class CardDataTable extends DataTable
             ->setTableId('card-table')
             ->columns($this->getColumns())
             ->addTableClass('w-100')
+            ->dom("<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'p>>" .
+                "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" .
+                "<'row'<'col-sm-12'tr>>" .
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>")
             ->minifiedAjax()
             ->orderBy(1)
             ->buttons([
