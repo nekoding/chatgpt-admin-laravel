@@ -19,14 +19,14 @@ class ConfigController extends Controller
         ]);
 
         if (isset($params['key'])) {
-            $config = Cache::remember('config-' . $params['key'], now()->addMinutes(10), function () use ($params) {
+            $config = Cache::remember('config-' . $params['key'], now()->addMinutes(5), function () use ($params) {
                 return \App\Models\Config::select('key', 'value')->where('key', $params['key'])->first();
             });
 
             return new \App\Http\Resources\Config\ConfigResource($config);
         }
 
-        $configs = Cache::remember('config-app', now()->addMinutes(10), function () {
+        $configs = Cache::remember('config-app', now()->addMinutes(5), function () {
             return \App\Models\Config::select('key', 'value')->get();
         });
 
