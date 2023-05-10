@@ -14,7 +14,8 @@ class Language extends Model
 
     protected $fillable = [
         'title_id',
-        'default'
+        'default',
+        'deleted_at'
     ];
 
     public function translates(): HasMany

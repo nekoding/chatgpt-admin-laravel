@@ -24,10 +24,13 @@ class LanguageImport implements ToModel, WithHeadingRow, WithBatchInserts
 
         DB::beginTransaction();
         try {
-            $lang = Language::updateOrCreate([
-                'title_id'  => $row['titleid']
+            // handle case when language is deleted 
+            // user still can import lang files and use same title_id
+            $lang = Language::withTrashed()->updateOrCreate([
+                'title_id'      => $row['titleid']
             ], [
-                'default'   => $row['basic']
+                'default'       => $row['basic'],
+                'deleted_at'    => null
             ]);
 
             unset($row['title_id'], $row['basic']);
@@ -39,10 +42,18 @@ class LanguageImport implements ToModel, WithHeadingRow, WithBatchInserts
                     continue;
                 }
 
-                $lang->translates()->create([
-                    'lang_code'     => $langCode,
-                    'text'          => $value
-                ]);
+                $lang->translates()
+                    ->withTrashed()
+                    ->updateOrCreate(
+                        [
+                            'lang_code'     => $langCode,
+                        ],
+                        [
+                            'lang_code'     => $langCode,
+                            'text'          => $value,
+                            'deleted_at'    => null
+                        ]
+                    );
             }
 
             DB::commit();
