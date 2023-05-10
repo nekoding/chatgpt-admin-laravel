@@ -17,7 +17,6 @@ class CardFactory extends Factory
     public function definition(): array
     {
         return [
-            'image_path'    => $this->faker->imageUrl(),
             'title'         => $this->faker->jobTitle(),
             'upright'       => $this->faker->paragraph(),
             'reversed'      => $this->faker->paragraph(),

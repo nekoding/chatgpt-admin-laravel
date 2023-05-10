@@ -8,13 +8,15 @@ use Tests\TestCase;
 
 class ConfigControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    public function test_get_config()
+    {
+        //
+    }
+
+    public function test_get_specific_config()
+    {
+        //
     }
 }
