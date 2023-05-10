@@ -15,7 +15,8 @@ class CardController extends Controller
         $params = $request->validate([
             'locale'        => 'required|string',
             'limit'         => 'nullable|numeric',
-            'random_order'  => 'nullable|boolean'
+            'random_order'  => 'nullable|boolean',
+            'image_type'    => 'nullable|string'
         ]);
 
         // handle limit abuse
@@ -36,6 +37,15 @@ class CardController extends Controller
             ->when($params['random_order'] ?? false, function ($query, $value) {
                 if ($value) {
                     return $query->inRandomOrder();
+                }
+
+                return $query;
+            })
+            ->when($params['image_type'] ?? false, function ($query, $value) {
+                if ($value) {
+                    return $query->with(['images' => function ($query) use ($value) {
+                        return $query->where('data->card_key', $value);
+                    }]);
                 }
 
                 return $query;

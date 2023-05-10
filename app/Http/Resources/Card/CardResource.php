@@ -19,6 +19,7 @@ class CardResource extends JsonResource
             'title'         => \App\Http\Resources\Card\CardTitleResource::make($this),
             'upright'       => \App\Http\Resources\Card\CardUprightResource::make($this),
             'reversed'      => \App\Http\Resources\Card\CardReversedResource::make($this),
+            'images'        => \App\Http\Resources\Images\ImageCollection::make($this->images),
         ];
     }
 }

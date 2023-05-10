@@ -25,7 +25,8 @@ class Image extends Model
     ];
 
     protected $casts = [
-        'data' => 'array'
+        'data' => 'array',
+        'image_size' => 'int'
     ];
 
     /**
