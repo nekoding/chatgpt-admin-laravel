@@ -33,7 +33,7 @@ class CardController extends Controller
             'uprightLang.translates' => fn ($query) => $query->where('lang_code', $params['locale']),
             'reversedLang.translates' => fn ($query) => $query->where('lang_code', $params['locale'])
         ])
-            ->when($params['random_order'], function ($query, $value) {
+            ->when($params['random_order'] ?? false, function ($query, $value) {
                 if ($value) {
                     return $query->inRandomOrder();
                 }

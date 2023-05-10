@@ -19,7 +19,7 @@ class TarotSpreadController extends Controller
             'title_id'  => 'nullable|string'
         ]);
 
-        $response = Cache::remember($data['locale'], now()->addMinutes(5), function () use ($data) {
+        $response = Cache::remember('tarot-spread-' . $data['locale'], now()->addMinutes(5), function () use ($data) {
             return \App\Models\Language::with([
                 'translates' => fn ($query) => $query->where('lang_code', $data['locale'])
             ])->where('title_id', 'like', '%spread-detail%')->get();
