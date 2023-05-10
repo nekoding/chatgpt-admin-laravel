@@ -28,15 +28,15 @@
                 class="nav-link"
                 href="{{ route('cards.index') }}"
             >
-                <i class="cil-filter-photo nav-icon"></i> Cards</a></li>
+                <i class="cil-filter-photo nav-icon"></i> Tarot Cards</a></li>
         <li class="nav-item"><a
                 class="nav-link"
-                href="{{ route('card-categories.index') }}"
+                href="{{ route('tarot-spreads.index') }}"
             >
-                <i class="cil-font nav-icon"></i> Card Category</a></li>
+                <i class="cil-font nav-icon"></i> Tarot Spread Category</a></li>
         <li class="nav-item"><a
                 class="nav-link"
-                href="{{ route('prompt-categories.index') }}"
+                href="{{ route('reading-categories.index') }}"
             >
                 <i class="cil-keyboard nav-icon"></i> Tarot Reading Category</a></li>
         <li class="nav-item"><a

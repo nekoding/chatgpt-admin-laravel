@@ -28,15 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/languages/revert', [\App\Http\Controllers\Admin\LanguageManagementController::class, 'revertImportData'])->name('languages.revert');
     Route::resource('/languages', \App\Http\Controllers\Admin\LanguageManagementController::class)->except('show');
 
-    Route::post('/card-categories/import', [\App\Http\Controllers\Admin\CardCategoryManagementController::class, 'handleImportData'])->name('card-categories.import');
-    Route::delete('/card-categories/revert', [\App\Http\Controllers\Admin\CardCategoryManagementController::class, 'revertImportData'])->name('card-categories.revert');
-    Route::resource('/card-categories', \App\Http\Controllers\Admin\CardCategoryManagementController::class);
-
+    Route::resource('/tarot-spreads', \App\Http\Controllers\Admin\TarotSpreadCategoryManagementController::class)
+        ->except(['show']);
+    Route::resource('/reading-categories', \App\Http\Controllers\Admin\TarotReadingCategoryManagementController::class)
+        ->except(['show']);
     Route::resource('/prompts', \App\Http\Controllers\Admin\PromptManagementController::class);
-
-    Route::post('/prompt-categories/import', [\App\Http\Controllers\Admin\PromptCategoryManagementController::class, 'handleImportData'])->name('prompt-categories.import');
-    Route::delete('/prompt-categories/revert', [\App\Http\Controllers\Admin\PromptCategoryManagementController::class, 'revertImportData'])->name('prompt-categories.revert');
-    Route::resource('/prompt-categories', \App\Http\Controllers\Admin\PromptCategoryManagementController::class);
 
 
     Route::prefix('configuration')->group(function () {

@@ -2,7 +2,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
-                <span class="fw-bold">Card Category Management</span>
+                <span class="fw-bold">Tarot Reading Category Management</span>
 
                 <div class="d-flex align-items-center gap-2">
                     <button
@@ -13,7 +13,7 @@
                     >Import</button>
                     <a
                         class="btn btn-tosca text-white"
-                        href="{{ route('card-categories.create') }}"
+                        href="{{ route('reading-categories.create') }}"
                     >Add</a>
                 </div>
             </div>
@@ -66,16 +66,16 @@
                 FilePond.setOptions({
                     server: {
                         process: {
-                            url: `{{ route('card-categories.import') }}`,
+                            url: `{{ route('languages.import') }}`,
                             headers: {
                                 'X-CSRF-TOKEN': `{{ csrf_token() }}`
                             },
                             onload: () => {
-                                window.LaravelDataTables['cardcategory-table'].ajax.reload()
+                                window.LaravelDataTables['tarotreadingcategory-table'].ajax.reload()
                             }
                         },
                         revert: {
-                            url: `{{ route('card-categories.revert') }}`,
+                            url: `{{ route('languages.revert') }}`,
                             headers: {
                                 'X-CSRF-TOKEN': `{{ csrf_token() }}`
                             },

@@ -4,18 +4,17 @@
             <div class="d-flex align-items-center gap-2">
                 <a
                     class="nav-link"
-                    href="{{ route('card-categories.index') }}"
+                    href="{{ route('reading-categories.index') }}"
                 ><i class="cil-arrow-left"></i></a>
-                <span class="fw-bold">Add Card Category</span>
+                <span class="fw-bold">Add Tarot Reading Category</span>
             </div>
         </div>
         <div class="card-body">
             <form
-                action="{{ route('card-categories.update', ['card_category' => $cardCategory->id]) }}"
+                action="{{ route('reading-categories.store') }}"
                 method="POST"
             >
                 @csrf
-                @method('PUT')
                 <div class="mb-3 row">
                     <label
                         class="col-sm-2 col-form-label"
@@ -27,7 +26,7 @@
                             id="titleId"
                             name="title_id"
                             type="text"
-                            value="{{ old('title_id', $cardCategory->title_id) }}"
+                            value="{{ old('title_id') }}"
                         >
                         @error('title_id')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -46,7 +45,7 @@
                             id="default"
                             name="default"
                             type="text"
-                            value="{{ old('default', $cardCategory->default) }}"
+                            value="{{ old('default') }}"
                         >
                         @error('default')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -65,7 +64,7 @@
                             id="en_US"
                             name="translations[en_us]"
                             type="text"
-                            value="{{ old('translations.en_us', $translates['en_us'] ?? '') }}"
+                            value="{{ old('translations.en_us') }}"
                         >
                         @error('translations.en_us')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -84,7 +83,7 @@
                             id="en_UK"
                             name="translations[en_uk]"
                             type="text"
-                            value="{{ old('translations.en_uk', $translates['en_uk'] ?? '') }}"
+                            value="{{ old('translations.en_uk') }}"
                         >
                         @error('translations.en_uk')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -103,7 +102,7 @@
                             id="ja_JP"
                             name="translations[ja_jp]"
                             type="text"
-                            value="{{ old('translations.ja_jp', $translates['ja_jp'] ?? '') }}"
+                            value="{{ old('translations.ja_jp') }}"
                         >
                         @error('translations.ja_jp')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -122,7 +121,7 @@
                             id="in_ID"
                             name="translations[in_id]"
                             type="text"
-                            value="{{ old('translations.in_id', $translates['in_id'] ?? '') }}"
+                            value="{{ old('translations.in_id') }}"
                         >
                         @error('translations.in_id')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -141,7 +140,7 @@
                             id="zh_CN"
                             name="translations[zh_cn]"
                             type="text"
-                            value="{{ old('translations.zh_cn', $translates['zh_cn'] ?? '') }}"
+                            value="{{ old('translations.zh_cn') }}"
                         >
                         @error('translations.zh_cn')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -160,7 +159,7 @@
                             id="fr_FR"
                             name="translations[fr_fr]"
                             type="text"
-                            value="{{ old('translations.fr_fr', $translates['fr_fr'] ?? '') }}"
+                            value="{{ old('translations.fr_fr') }}"
                         >
                         @error('translations.fr_fr')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -179,7 +178,7 @@
                             id="de_DE"
                             name="translations[de_de]"
                             type="text"
-                            value="{{ old('translations.de_de', $translates['de_de'] ?? '') }}"
+                            value="{{ old('translations.de_de') }}"
                         >
                         @error('translations.de_de')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -198,7 +197,7 @@
                             id="it_IT"
                             name="translations[it_it]"
                             type="text"
-                            value="{{ old('translations.it_it', $translates['it_it'] ?? '') }}"
+                            value="{{ old('translations.it_it') }}"
                         >
                         @error('translations.it_it')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -217,7 +216,7 @@
                             id="ko_KR"
                             name="translations[ko_kr]"
                             type="text"
-                            value="{{ old('translations.ko_kr', $translates['ko_kr'] ?? '') }}"
+                            value="{{ old('translations.ko_kr') }}"
                         >
                         @error('translations.ko_kr')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -236,7 +235,7 @@
                             id="pt_PT"
                             name="translations[pt_pt]"
                             type="text"
-                            value="{{ old('translations.pt_pt', $translates['pt_pt'] ?? '') }}"
+                            value="{{ old('translations.pt_pt') }}"
                         >
                         @error('translations.pt_pt')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -255,7 +254,7 @@
                             id="pt_BR"
                             name="translations[pt_br]"
                             type="text"
-                            value="{{ old('translations.pt_br', $translates['pt_br'] ?? '') }}"
+                            value="{{ old('translations.pt_br') }}"
                         >
                         @error('translations.pt_br')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -274,7 +273,7 @@
                             id="es_ES"
                             name="translations[es_es]"
                             type="text"
-                            value="{{ old('translations.es_es', $translates['es_es'] ?? '') }}"
+                            value="{{ old('translations.es_es') }}"
                         >
                         @error('translations.es_es')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -293,7 +292,7 @@
                             id="tr_TR"
                             name="translations[tr_tr]"
                             type="text"
-                            value="{{ old('translations.tr_tr', $translates['tr_tr'] ?? '') }}"
+                            value="{{ old('translations.tr_tr') }}"
                         >
                         @error('translations.tr_tr')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -307,18 +306,4 @@
             </form>
         </div>
     </div>
-
-    @push('scripts')
-        @if (session()->has('success'))
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    Swal.fire(
-                        'Success!',
-                        'Your data has been updated.',
-                        'success'
-                    )
-                })
-            </script>
-        @endif
-    @endpush
 </x-app-layout>

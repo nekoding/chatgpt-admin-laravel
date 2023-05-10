@@ -1,13 +1,13 @@
 <div
     class="d-flex align-items-center gap-2"
     x-data="{
-        deleteUrl: '{{ route('card-categories.destroy', ['card_category' => $cardCategory->id]) }}'
+        deleteUrl: '{{ route('tarot-spreads.destroy', ['tarot_spread' => $language->id]) }}'
     }"
 >
     <a
         class="btn btn-tosca"
-        href="{{ route('card-categories.edit', [
-            'card_category' => $cardCategory->id,
+        href="{{ route('tarot-spreads.edit', [
+            'tarot_spread' => $language->id,
         ]) }}"
     >Edit</a>
     <button
@@ -40,7 +40,7 @@
                     )
                   })
                   .finally(() => {
-                    window.LaravelDataTables['cardcategory-table'].ajax.reload()
+                    window.LaravelDataTables['tarotspreadcategory-table'].ajax.reload()
                   })
                 }
             })

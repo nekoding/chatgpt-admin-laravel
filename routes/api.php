@@ -14,9 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/languages', \App\Http\Controllers\API\LanguageController::class)->name('api.languages.index');
-Route::get('/cards', \App\Http\Controllers\API\CardController::class)->name('api.cards.index');
-Route::get('/configs', \App\Http\Controllers\API\ConfigController::class)->name('api.configs.index');
+Route::prefix('/v1')->group(function () {
+    Route::get('/languages', \App\Http\Controllers\API\LanguageController::class)->name('api.languages.index');
+    Route::get('/cards', \App\Http\Controllers\API\CardController::class)->name('api.cards.index');
+    Route::get('/configs', \App\Http\Controllers\API\ConfigController::class)->name('api.configs.index');
+    Route::get('/tarot-spreads', \App\Http\Controllers\API\TarotSpreadController::class)->name('api.tarot-spreads.index');
+    Route::get('/reading-categories', \App\Http\Controllers\API\ReadingCategoryController::class)->name('api.reading-categories.index');
+    Route::get('/prompts', \App\Http\Controllers\API\PromptController::class)->name('api.prompts.index');
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {

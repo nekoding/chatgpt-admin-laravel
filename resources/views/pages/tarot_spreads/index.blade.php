@@ -2,7 +2,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
-                <span class="fw-bold">Language Management</span>
+                <span class="fw-bold">Tarot Spread Category Management</span>
 
                 <div class="d-flex align-items-center gap-2">
                     <button
@@ -13,7 +13,7 @@
                     >Import</button>
                     <a
                         class="btn btn-tosca text-white"
-                        href="{{ route('languages.create') }}"
+                        href="{{ route('tarot-spreads.create') }}"
                     >Add</a>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                                 'X-CSRF-TOKEN': `{{ csrf_token() }}`
                             },
                             onload: () => {
-                                window.LaravelDataTables['language-table'].ajax.reload()
+                                window.LaravelDataTables['tarotspreadcategory-table'].ajax.reload()
                             }
                         },
                         revert: {

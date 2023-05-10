@@ -33,14 +33,5 @@ class DatabaseSeeder extends Seeder
                 'value' => $value
             ]);
         }
-
-        $prompts = [
-            [
-                'key'               => 'prompt-1',
-                'prompt_template'   => 'Example prompt chat gpt'
-            ]
-        ];
-
-        \App\Models\OpenAiPrompt::upsert($prompts, ['key', 'prompt_template']);
     }
 }

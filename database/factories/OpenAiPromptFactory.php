@@ -17,7 +17,8 @@ class OpenAiPromptFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'key' => uniqid('', true),
+            'prompt_template' => $this->faker->paragraph()
         ];
     }
 }

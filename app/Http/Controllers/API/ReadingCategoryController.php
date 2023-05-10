@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
-class LanguageController extends Controller
+class ReadingCategoryController extends Controller
 {
+
     /**
      * Handle the incoming request.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
     {
@@ -25,7 +22,7 @@ class LanguageController extends Controller
         $response = Cache::remember($data['locale'], now()->addMinutes(5), function () use ($data) {
             return \App\Models\Language::with([
                 'translates' => fn ($query) => $query->where('lang_code', $data['locale'])
-            ])->get();
+            ])->where('title_id', 'like', '%category%')->get();
         });
 
         if (isset($data['title_id'])) {

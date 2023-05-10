@@ -6,7 +6,7 @@
                     class="nav-link"
                     href="{{ route('cards.index') }}"
                 ><i class="cil-arrow-left"></i></a>
-                <span class="fw-bold">Add Card</span>
+                <span class="fw-bold">Edit Card</span>
             </div>
         </div>
         <div class="card-body position-relative">

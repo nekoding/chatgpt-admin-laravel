@@ -8,13 +8,29 @@ use Tests\TestCase;
 
 class LanguageControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
+    use RefreshDatabase;
+
+    public function test_get_all_languages()
+    {
+        \App\Models\Language::factory([
+            'title_id'  => uniqid(),
+            'default'   => 'abc'
+        ])->create();
+
+        $this->get(route('api.languages.index', ['locale' => 'en_us']))
+            ->assertJsonCount(1, 'data')
+            ->assertJsonIsArray('data');
+    }
+
+    public function test_get_specific_title_id()
+    {
+        \App\Models\Language::factory([
+            'title_id'  => 'abc',
+            'default'   => 'def'
+        ])->create();
+
+        $this->get(route('api.languages.index', ['locale' => 'en_us', 'title_id' => 'abc']))
+            ->assertJsonIsObject('data');
     }
 }
