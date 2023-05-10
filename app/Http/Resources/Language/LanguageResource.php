@@ -21,7 +21,7 @@ class LanguageResource extends JsonResource
             ]
         ];
 
-        $data['lang'] += $this->translates?->map(fn($item) => ['locale' => $item->text])->first() ?? ['locale' => null];
+        $data['lang'] += $this->translates?->map(fn ($item) => ['locale' => $item->text])->first() ?? ['locale' => null];
 
         return $data;
     }
