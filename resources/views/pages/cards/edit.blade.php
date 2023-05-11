@@ -205,26 +205,39 @@
                 $.fn.filepond.registerPlugin(FilePondPluginFilePoster);
 
                 // attach to each filepond handler
-                cardImages.forEach(item => {
-                    const configs = {
-                        files: [{
-                            source: item.id,
-                            options: {
-                                type: 'local',
-                                file: {
-                                    name: item.filename,
-                                    size: item.image_size,
-                                    type: item.mime_type
-                                },
-                                metadata: {
-                                    poster: '{{ asset('storage/') }}' + '/' + item.image_path,
-                                },
-                            },
-                        }],
+                $('.uploader').each((_, item) => {
+                    const uploaderName = item.getAttribute('name')
+                    let config = {}
+
+                    // check if cardImages contain configuration for specific uploader
+                    const uploaderConfig = cardImages
+                        .filter(image => image.data.card_key == uploaderName)
+                        .map(image => {
+                            return {
+                                files: [{
+                                    source: image.id,
+                                    options: {
+                                        type: 'local',
+                                        file: {
+                                            name: image.filename,
+                                            size: image.image_size,
+                                            type: image.mime_type
+                                        },
+                                        metadata: {
+                                            poster: '{{ asset('storage/') }}' + '/' + image
+                                                .image_path,
+                                        },
+                                    },
+                                }],
+                            }
+                        })
+
+                    if (uploaderConfig.length) {
+                        config = uploaderConfig[0]
                     }
 
-                    $(`.uploader[name=${item.data.card_key}]`).filepond(configs);
-                });
+                    $(`.uploader[name=${uploaderName}]`).filepond(config);
+                })
 
                 // render filepond
                 $('.uploader').filepond('allowMultiple', false);
