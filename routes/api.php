@@ -21,6 +21,13 @@ Route::prefix('/v1')->group(function () {
     Route::get('/tarot-spreads', \App\Http\Controllers\API\TarotSpreadController::class)->name('api.tarot-spreads.index');
     Route::get('/reading-categories', \App\Http\Controllers\API\ReadingCategoryController::class)->name('api.reading-categories.index');
     Route::get('/prompts', \App\Http\Controllers\API\PromptController::class)->name('api.prompts.index');
+    Route::post('/open-ai', [\App\Http\Controllers\API\OpenAiController::class, 'store'])->name('api.opena-ai.store');
+    Route::prefix('auth')->group(function () {
+        Route::post('/login', [\App\Http\Controllers\API\AuthController::class, 'login'])->name('api.auth.login');
+        Route::post('/signup', [\App\Http\Controllers\API\AuthController::class, 'signup'])->name('api.auth.signup');
+        Route::post('/logout', [\App\Http\Controllers\API\AuthController::class, 'logout'])->name('api.auth.logout');
+        Route::post('/refresh-token', [\App\Http\Controllers\API\AuthController::class, 'refresh'])->name('api.auth.refresh');
+    });
 });
 
 Route::middleware('auth:sanctum')->group(function () {
