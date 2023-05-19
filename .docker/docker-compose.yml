@@ -36,7 +36,6 @@ services:
         reservations:
           cpus: '1'
           memory: 128M
-
   database:
     image: mysql:8
     volumes:
@@ -57,6 +56,13 @@ services:
         reservations:
           cpus: '0.5'
           memory: 412M
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8091:8080
+    networks:
+      - laravel_app
 
 networks:
   laravel_app:
